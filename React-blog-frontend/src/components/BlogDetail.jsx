@@ -6,7 +6,7 @@ const BlogDetail = () => {
     const params = useParams();
 
     const fetchBlog = async () => {
-        const res = await fetch('http://localhost:8000/api/blogs/' + params.id);
+        const res = await fetch('http://react_blog.test/api/blogs/' + params.id);
         const result = await res.json();
         setBlog(result.data);
         // console.log(params.id);
@@ -30,7 +30,7 @@ const BlogDetail = () => {
                     <p>by <strong>{blog.author}</strong> on {blog.date}</p>
 
                     {
-                        (blog.image) && <img className='w-100' src={`http://localhost:8000/uploads/blogs/${blog.image}`} />
+                        (blog.image) && <img className='w-100' src={`http://react_blog.test/uploads/blogs/${blog.image}`} />
                     }
 
                     <div className="mt-5" dangerouslySetInnerHTML={{ __html: blog.description }}>

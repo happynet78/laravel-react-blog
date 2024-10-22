@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\TempImage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,6 +14,7 @@ class BlogController extends Controller
 {
     // This method will return all blogs.
     public function index(Request $request) {
+        DB::enableQueryLog();
         $blogs = Blog::orderBy('created_at', 'desc');
 
         if(!empty($request->keyword)) {
@@ -48,6 +50,7 @@ class BlogController extends Controller
 
     // This method will store a blog
     public function store(Request $request) {
+        DB::enableQueryLog();
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:10',
             'author' => 'required|min:3'
@@ -67,7 +70,7 @@ class BlogController extends Controller
         $blog->description = $request->description;
         $blog->shortDesc = $request->shortDesc;
         $blog->save();
-
+//dump(DB::getQueryLog());
         // Save Image Here
         $tempImage = TempImage::find($request->image_id);
 

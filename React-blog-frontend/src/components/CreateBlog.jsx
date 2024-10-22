@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Editor from 'react-simple-wysiwyg';
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../Context/AppContext';
 
 const CreateBlog = () => {
     const [html, setHtml] = useState('');
     const [imageId, setImageId] = useState('');
+    const { user } = useContext(AppContext)
 
     const navigate = useNavigate();
 
@@ -19,7 +21,7 @@ const CreateBlog = () => {
         const formData = new FormData();
         formData.append('image', file);
 
-        const res = await fetch("http://localhost:8000/api/save-temp-image", {
+        const res = await fetch("http://react_blog.test/api/save-temp-image", {
             method: "POST",
             body: formData
         });
@@ -44,14 +46,14 @@ const CreateBlog = () => {
     const formSubmit = async(data) => {
         const newData = { ...data, "description": html, image_id: imageId };
 
-        const res = await fetch("http://localhost:8000/api/blogs",{
+        const res = await fetch("http://react_blog.test/api/blogs",{
             method: "POST",
             headers: {
                 'Content-type' : 'application/json'
             },
             body: JSON.stringify(newData)
         });
-        
+        console.log(res);
         if(res.status === 200) {
             toast("Blog added successfully.");
 
@@ -95,7 +97,7 @@ const CreateBlog = () => {
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Author</label>
-                            <input { ...register('author', { required: true }) } type="text" 
+                            <input { ...register('author', { required: true }) } type="text" value={user.name}
                             className={`form-control ${errors.author && 'is-invalid'}`} 
                             placeholder='Author' />
                             {errors.author && <p className='invalid-feedback'>Author field is required</p>}

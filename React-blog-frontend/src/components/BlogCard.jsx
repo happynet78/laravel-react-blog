@@ -4,12 +4,12 @@ import { toast } from 'react-toastify';
 const BlogCard = ({blog, blogs, setBlogs}) => {
 
     const showImage = (img) => {
-        return (img) ? 'http://localhost:8000/uploads/blogs/' + img : 'https://placehold.co/600x400';
+        return (img) ? 'http://react_blog.test/uploads/blogs/' + img : 'https://placehold.co/600x400';
     }
 
     const deleteBlog = async(id) => {
         if(confirm('Are you sure want to delete?')) {
-            const res = await fetch('http://localhost:8000/api/blogs/' + id, {
+            const res = await fetch('/api/blogs/' + id, {
                 method: 'DELETE'
             });
             console.log('res.status: '+res.status);
@@ -25,7 +25,7 @@ const BlogCard = ({blog, blogs, setBlogs}) => {
     }
 
     return (
-        <div className="col-12 col-md-2 col-lg-3 mb-4">
+        <div className="col-12 col-md-4 col-lg-3 mb-4">
             <div className="card border-0 shadow-lg">
                 <img src={showImage(blog.image)} alt="" className="card-img-top" />
                 <div className="card-body">
@@ -35,7 +35,7 @@ const BlogCard = ({blog, blogs, setBlogs}) => {
                         <a href={`/blog/${blog.id}`} className="btn btn-dark">Details</a>
                         
 
-                        <div>
+                        <div className="flex flex-row align-middle">
                             <a href="#" className="text-danger" onClick={() => deleteBlog(blog.id)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>

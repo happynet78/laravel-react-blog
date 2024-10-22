@@ -6,7 +6,7 @@ const Blogs = () => {
     const [keyword, setKeyword] = useState('');
 
     const fetchBlogs = async() => {
-        const res = await fetch("http://localhost:8000/api/blogs");
+        const res = await fetch("http://react_blog.test/api/blogs");
         const result = await res.json();
         
         setBlogs(result.data);
@@ -15,7 +15,7 @@ const Blogs = () => {
     const searchBlogs = async(e) => {
         e.preventDefault();
 
-        const res = await fetch("http://localhost:8000/api/blogs?keyword=" + keyword);
+        const res = await fetch("http://react_blog.test/api/blogs?keyword=" + keyword);
         const result = await res.json();
         
         setBlogs(result.data);

@@ -31,7 +31,7 @@ const EditBlog = () => {
         const formData = new FormData();
         formData.append('image', file);
 
-        const res = await fetch("http://localhost:8000/api/save-temp-image", {
+        const res = await fetch("http://react_blog.test/api/save-temp-image", {
             method: "POST",
             body: formData
         });
@@ -47,7 +47,7 @@ const EditBlog = () => {
     }
 
     const fetchBlog = async () => {
-        const res = await fetch('http://localhost:8000/api/blogs/' + params.id);
+        const res = await fetch('http://react_blog.test/api/blogs/' + params.id);
         const result = await res.json();
         setBlog(result.data);
         setHtml(result.data.description);
@@ -57,7 +57,7 @@ const EditBlog = () => {
     const formSubmit = async(data) => {
         const newData = { ...data, "description": html, image_id: imageId };
 
-        const res = await fetch("http://localhost:8000/api/blogs/"+params.id,{
+        const res = await fetch("http://react_blog.test/api/blogs/"+params.id,{
             method: "PUT",
             headers: {
                 'Content-type' : 'application/json'
